@@ -1,3 +1,31 @@
+const URL_POR_OMISSAO = "https://enrichedstudio.com";
+
+/**
+ * Resolve o endereço do site a partir do ambiente.
+ * Uma variável definida mas vazia é tratada como ausente, aceita-se um domínio sem
+ * protocolo, e um valor inválido nunca parte a compilação: passa-se ao seguinte.
+ */
+function resolveSiteUrl(): string {
+  const candidatos = [
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.NEXT_PUBLIC_VERCEL_URL, // domínio do deploy, útil nas pré-visualizações
+    process.env.VERCEL_URL,
+  ];
+
+  for (const bruto of candidatos) {
+    const valor = bruto?.trim();
+    if (!valor) continue;
+    const comProtocolo = /^https?:\/\//i.test(valor) ? valor : `https://${valor}`;
+    try {
+      return new URL(comProtocolo).origin;
+    } catch {
+      continue;
+    }
+  }
+
+  return URL_POR_OMISSAO;
+}
+
 /**
  * Configuração central da Enriched Studios.
  * TODO (cliente): substituir os valores marcados com PLACEHOLDER pelos dados reais.
@@ -6,7 +34,7 @@ export const site = {
   name: "Enriched Studios",
   legalName: "Enriched Studios",
   domain: "enrichedstudio.com",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://enrichedstudio.com",
+  url: resolveSiteUrl(),
   email: "geral@enrichedstudio.com", // PLACEHOLDER: confirmar o endereço real
   phone: "+351 916 244 265",
   phoneHref: "+351916244265",
