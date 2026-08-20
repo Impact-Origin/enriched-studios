@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* --- Enriched Studios palette --------------------------------------- */
+  --color-ink: #08080a;
+  --color-ink-soft: #0e0e12;
+  --color-surface: #141419;
+  --color-line: #26262e;
+
+  --color-brand-50: #f4f0ff;
+  --color-brand-100: #e9e0ff;
+  --color-brand-200: #d5c4ff;
+  --color-brand-300: #b79bff;
+  --color-brand-400: #9b74fb;
+  --color-brand-500: #7c3aed;
+  --color-brand-600: #6825d6;
+  --color-brand-700: #551bb0;
+  --color-brand-800: #43188a;
+  --color-brand-900: #33146a;
+  --color-brand-950: #1d0942;
+
+  /* aliases kept so shared components read like the brand, not like hex */
+  --color-charcoal: #08080a;
+  --color-secondary: #7c3aed;
+  --color-muted: #b4b4c0;
+  --color-muted-dark: #7d7d8c;
+
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-brand), ui-monospace, "SFMono-Regular", monospace;
+
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+
+  --animate-aperture: aperture 22s linear infinite;
+  --animate-rise: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes aperture {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+:root {
+  --charcoal: var(--color-ink);
+  --ink: var(--color-ink);
+  --brand: var(--color-brand-500);
+  --brand-light: var(--color-brand-300);
+  --brand-deep: var(--color-brand-900);
+  --line: var(--color-line);
+  --neutral-800: var(--color-neutral-800);
+  --neutral-900: var(--color-neutral-900);
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: #ededf2;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-brand-500);
+  color: #fff;
+}
+
+/* Preenchimento automático do browser: sem o amarelo do Chrome por cima do preto. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0 1000px #17171d inset;
+  caret-color: #ffffff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Barras de scroll: a regra webkit não chega ao Firefox. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-700) var(--color-ink);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-ink); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-brand-700), var(--color-brand-950));
+  border-radius: 999px;
+  border: 2px solid var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-400);
+  outline-offset: 3px;
+}
+
+/* --- brand utilities -------------------------------------------------- */
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Editorial micro-label: mono, uppercase, wide tracking. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-brand-300);
+}
+
+/* Film grain, keeps the flat black from looking like plastic. */
+@utility grain {
+  position: relative;
+}
+
+@utility grain-overlay {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+@utility hairline {
+  border-top: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+}
+
+/* --- entrance animations ---------------------------------------------
+   CSS-only, so content is never hidden behind JavaScript. Browsers with
+   scroll-driven animations play them on scroll; the others simply show
+   the content (and play the load-in sequence on the hero). */
+
+/* Base state is always visible; the client only animates what starts below the fold. */
+.reveal {
+  opacity: 1;
+}
+
+/* Barra de leitura e parallax: animações guiadas pelo scroll, sem JavaScript.
+   Onde o browser não suporta, a barra fica invisível e as imagens ficam paradas. */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.parallax {
+  will-change: transform;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress linear;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax {
+      animation: parallax linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes parallax {
+  from { transform: translateY(var(--parallax-from, 30px)); }
+  to { transform: translateY(var(--parallax-to, -30px)); }
+}
+
+.fade-up {
+  animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.word-rise > span {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.word-rise > span > span {
+  display: inline-block;
+  animation: word-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes word-rise {
+  from { transform: translateY(110%); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
