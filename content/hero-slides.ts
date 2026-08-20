@@ -6,5 +6,4 @@ export const heroSlideLabels: Record<string, string> = {
   "01-equipa": "Estúdio",
   "02-mesa": "Podcast",
   "03-convidados": "Convidados",
-  "04-entrevista": "Entrevista",
 };
