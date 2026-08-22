@@ -3,25 +3,27 @@ import React from "react";
 
 import { Container, SectionHeader } from "@/components/section";
 import { MediaFrame } from "@/components/media-frame";
+import { DragCarousel } from "@/components/ui/drag-carousel";
+import { IconArrowUpRight, IconBrandInstagram } from "@tabler/icons-react";
 import { Bloom, Grain } from "@/components/backdrop";
 import { Reveal } from "@/components/ui/reveal";
 import { Counter } from "@/components/ui/counter";
 import { getDictionary } from "@/content/dictionaries";
-import { filledClients, filledVideos, type ResultClient } from "@/content/results";
-import { pick, type MediaMap } from "@/lib/media";
+import { filledClients, filledReels, reelUrl, type ResultClient } from "@/content/results";
 import type { Locale } from "@/lib/i18n";
 
 /**
  * Prova social: alcance por cliente em 90 dias e os vídeos mais vistos.
  * Sem números preenchidos em content/results.ts, a secção não aparece.
  */
-export const Results = ({ locale, media }: { locale: Locale; media?: MediaMap }) => {
+export const Results = ({ locale }: { locale: Locale }) => {
   const dict = getDictionary(locale);
   const text = dict.results;
   const clients = filledClients();
-  const videos = filledVideos();
+  const reels = filledReels();
 
-  if (clients.length === 0) return null;
+  // a secção existe se houver pelo menos uma das duas provas
+  if (clients.length === 0 && reels.length === 0) return null;
 
   const metric = (label: string, value: string) => (
     <div key={label} className="border-t border-white/[0.08] py-4 first:border-t-0 first:pt-0">
@@ -68,7 +70,9 @@ export const Results = ({ locale, media }: { locale: Locale; media?: MediaMap })
       <Container className="relative z-10">
         <SectionHeader eyebrow={text.eyebrow} title={text.title} lead={text.lead} />
 
-        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">{clients.map(card)}</div>
+        {clients.length > 0 ? (
+          <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">{clients.map(card)}</div>
+        ) : null}
 
         <Reveal delay={0.1}>
           <p className="mt-10 border-l-2 border-brand-400 pl-6 font-display text-xl italic leading-snug text-white/85 md:text-2xl">
@@ -76,23 +80,37 @@ export const Results = ({ locale, media }: { locale: Locale; media?: MediaMap })
           </p>
         </Reveal>
 
-        {videos.length > 0 ? (
+        {reels.length > 0 ? (
           <div className="mt-16 border-t border-white/[0.08] pt-14">
             <h3 className="eyebrow">{text.topTitle}</h3>
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {videos.map((video, index) => (
-                <Reveal key={video.slot} delay={index * 0.06}>
-                  <MediaFrame ratio="9:16" index={index} {...pick(media, video.slot)} />
-                  <p className="mt-3 flex items-baseline gap-2 px-1">
-                    <span className="font-display text-2xl text-white">
-                      <Counter value={video.views} locale={locale} />
-                    </span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
-                      {text.views}
-                    </span>
-                  </p>
-                </Reveal>
-              ))}
+            <div className="mt-8">
+              <DragCarousel labels={{ drag: dict.ui.drag, prev: dict.ui.prev, next: dict.ui.next }}>
+                {reels.map((reel, index) => (
+                  <a
+                    key={reel.code}
+                    href={reelUrl(reel.code)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                  >
+                    <MediaFrame
+                      ratio="9:16"
+                      index={index}
+                      poster={`/reels/${reel.cover}`}
+                      label="Instagram"
+                    />
+                    <p className="mt-3 flex items-baseline gap-2 px-1">
+                      <span className="font-display text-2xl text-white">
+                        <Counter value={reel.views} locale={locale} />
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
+                        {text.views}
+                      </span>
+                      <IconArrowUpRight className="ml-auto h-4 w-4 shrink-0 self-center text-brand-400 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+                    </p>
+                  </a>
+                ))}
+              </DragCarousel>
             </div>
           </div>
         ) : null}

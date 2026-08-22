@@ -68,7 +68,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
     <>
       <JsonLd data={faqJsonLd(locale)} />
       <Hero locale={locale} slides={heroSlides} />
-      <Results locale={locale} media={media} />
+      <Results locale={locale} />
       <Clients locale={locale} partners={partners} />
       <ServicesTimeline locale={locale} media={media} />
       <Delivery locale={locale} />
