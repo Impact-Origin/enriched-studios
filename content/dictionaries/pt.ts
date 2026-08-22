@@ -39,9 +39,9 @@ export const pt = {
   },
   hero: {
     eyebrow: "Produtora de vídeo · Setor imobiliário",
-    titleLine1: "Filmamos imóveis.",
-    titleLine2: "Construímos",
-    titleAccent: "marcas.",
+    titleLine1: "Como ter alcance",
+    titleLine2: "e visibilidade nas",
+    titleAccent: "redes sociais?",
     lead: "Gravação, edição e marca pessoal para consultores e agências imobiliárias. Da primeira ideia à publicação: conteúdo que gera visitas, contactos e reputação.",
     note: "Resposta em 24h · Sem compromisso",
     mediaLabel: "Estúdio",
@@ -54,6 +54,33 @@ export const pt = {
     { value: site.stats.views, label: "Visualizações geradas" },
     { value: site.stats.delivery, label: "Entrega média" },
   ],
+
+  results: {
+    eyebrow: "Resultados",
+    title: "O que 90 dias de conteúdo dão",
+    lead: "Números de contas reais que passaram a publicar connosco, sem apostar em modas.",
+    period: "90 dias",
+    metrics: {
+      instagram: "Alcance no Instagram",
+      facebook: "Alcance no Facebook",
+      followers: "Seguidores ganhos",
+    },
+    note: "Todo esse alcance foi com vídeos técnicos, sem trends e sem dancinhas.",
+    topTitle: "Vídeos mais vistos",
+    views: "visualizações",
+  },
+
+  delivery: {
+    eyebrow: "Entrega",
+    title: "Do for you",
+    lead: "Tudo o que fica do nosso lado, do primeiro plano criativo à publicação.",
+    items: [
+      "Direção criativa mensal elaborada por nós",
+      "Captação",
+      "Edição especializada para retenção e alcance",
+      "Publicação de todo o conteúdo feita por nós",
+    ],
+  },
 
   services: {
     eyebrow: "O que fazemos",
@@ -116,33 +143,17 @@ export const pt = {
   },
 
   process: {
-    eyebrow: "Como trabalhamos",
-    title: "Um processo simples, sem surpresas",
-    lead: "Você concentra-se em vender. Nós tratamos do resto.",
+    eyebrow: "Metodologia",
+    title: "Como fazemos?",
+    lead: "Um método de produção pensado para gerar volume sem gastar os seus dias.",
     steps: [
+      { number: "01", title: "Produção de conteúdo em massa" },
+      { number: "02", title: "Gravamos em uma a duas visitas de 3 a 4 horas" },
+      { number: "03", title: "Média de 30+ conteúdos por mês" },
+      { number: "04", title: "Conteúdos orgânicos e sem roteirização" },
       {
-        number: "01",
-        title: "Diagnóstico",
-        description:
-          "Chamada de 30 minutos para perceber o seu mercado, os seus imóveis e onde está a perder oportunidades.",
-      },
-      {
-        number: "02",
-        title: "Estratégia e guião",
-        description:
-          "Definimos formatos, mensagem e calendário. Recebe os guiões antes da gravação. Nada é improvisado.",
-      },
-      {
-        number: "03",
-        title: "Dia de gravação",
-        description:
-          "Vamos ao imóvel ou ao seu escritório. Numa sessão captamos o imóvel e várias peças de conteúdo pessoal.",
-      },
-      {
-        number: "04",
-        title: "Edição e publicação",
-        description:
-          "Editamos, entregamos em 48h e, se quiser, publicamos e acompanhamos os resultados consigo.",
+        number: "05",
+        title: "Extraímos o intelecto técnico do cliente através de conversas dirigidas",
       },
     ],
   },

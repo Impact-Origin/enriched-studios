@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 
 import { Hero } from "@/components/hero";
 import { Clients } from "@/components/clients";
+import { Results } from "@/components/sections/results";
+import { Delivery } from "@/components/sections/delivery";
 import { ServicesTimeline } from "@/components/sections/services-timeline";
 import { Process } from "@/components/sections/process";
 import { Work } from "@/components/sections/work";
@@ -66,8 +68,10 @@ export default function HomePage({ params }: { params: { locale: string } }) {
     <>
       <JsonLd data={faqJsonLd(locale)} />
       <Hero locale={locale} slides={heroSlides} />
+      <Results locale={locale} media={media} />
       <Clients locale={locale} partners={partners} />
       <ServicesTimeline locale={locale} media={media} />
+      <Delivery locale={locale} />
       <Process locale={locale} />
       <Work locale={locale} media={media} />
       <Why locale={locale} media={media} />

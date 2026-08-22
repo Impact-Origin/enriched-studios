@@ -17,15 +17,16 @@ export const Process = ({ locale }: { locale: Locale }) => {
           lead={dict.process.lead}
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-3">
           {dict.process.steps.map((step, index) => (
             <Reveal key={step.number} delay={index * 0.08}>
               <SpotlightCard className="group relative h-full bg-ink-soft p-8 transition-colors duration-500 hover:bg-ink">
                 <span className="font-mono text-xs tracking-[0.24em] text-brand-400">
                   {step.number}
                 </span>
-                <h3 className="mt-6 font-display text-2xl text-white">{step.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-white/50">{step.description}</p>
+                <h3 className="mt-6 font-display text-xl leading-snug text-white md:text-2xl">
+                  {step.title}
+                </h3>
                 <span className="absolute inset-x-8 bottom-0 h-px origin-left scale-x-0 bg-brand-500 transition-transform duration-500 group-hover:scale-x-100" />
               </SpotlightCard>
             </Reveal>

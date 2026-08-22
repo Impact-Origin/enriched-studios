@@ -40,9 +40,9 @@ export const en: Dictionary = {
   },
   hero: {
     eyebrow: "Video production · Real estate",
-    titleLine1: "We film properties.",
-    titleLine2: "We build",
-    titleAccent: "brands.",
+    titleLine1: "How do you get reach",
+    titleLine2: "and visibility on",
+    titleAccent: "social media?",
     lead: "Filming, editing and personal branding for real estate agents and agencies. From the first idea to the final post: content that drives viewings, leads and reputation.",
     note: "24h reply · No commitment",
     mediaLabel: "Studio",
@@ -55,6 +55,33 @@ export const en: Dictionary = {
     { value: site.stats.views, label: "Views generated" },
     { value: site.stats.delivery, label: "Average turnaround" },
   ],
+
+  results: {
+    eyebrow: "Results",
+    title: "What 90 days of content deliver",
+    lead: "Numbers from real accounts that started publishing with us, without chasing trends.",
+    period: "90 days",
+    metrics: {
+      instagram: "Instagram reach",
+      facebook: "Facebook reach",
+      followers: "Followers gained",
+    },
+    note: "All of that reach came from technical videos, no trends and no dancing.",
+    topTitle: "Most watched videos",
+    views: "views",
+  },
+
+  delivery: {
+    eyebrow: "Delivery",
+    title: "Do for you",
+    lead: "Everything that stays on our side, from the monthly creative plan to publishing.",
+    items: [
+      "Monthly creative direction, written by us",
+      "Filming",
+      "Editing built for retention and reach",
+      "Publishing of every piece, handled by us",
+    ],
+  },
 
   services: {
     eyebrow: "What we do",
@@ -117,33 +144,17 @@ export const en: Dictionary = {
   },
 
   process: {
-    eyebrow: "How we work",
-    title: "A simple process, no surprises",
-    lead: "You focus on selling. We handle everything else.",
+    eyebrow: "Method",
+    title: "How we do it",
+    lead: "A production method built to create volume without eating up your days.",
     steps: [
+      { number: "01", title: "Content produced at scale" },
+      { number: "02", title: "We shoot in one or two visits of 3 to 4 hours" },
+      { number: "03", title: "An average of 30+ pieces per month" },
+      { number: "04", title: "Organic content, with no scripting" },
       {
-        number: "01",
-        title: "Discovery",
-        description:
-          "A 30-minute call to understand your market, your listings and where you're losing opportunities.",
-      },
-      {
-        number: "02",
-        title: "Strategy and scripts",
-        description:
-          "We define formats, message and calendar. You get the scripts before the shoot. Nothing is improvised.",
-      },
-      {
-        number: "03",
-        title: "Shoot day",
-        description:
-          "We come to the property or to your office. In a single session we capture the listing and several personal content pieces.",
-      },
-      {
-        number: "04",
-        title: "Edit and publish",
-        description:
-          "We edit, deliver within 48h and, if you want, publish and track the results with you.",
+        number: "05",
+        title: "We draw out the client's technical knowledge through guided conversations",
       },
     ],
   },
